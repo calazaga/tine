@@ -1,0 +1,1 @@
+var json_Geotag_6 = {"type":"FeatureCollection","name":"Geotag_6","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"Name":"Project 1","Path":"C:\\RLGM\\photos\\Subaybayan_12102022_092131.jpg"},"geometry":{"type":"Point","coordinates":[125.34527326171505,6.602249574244143]}}]}

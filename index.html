@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/ProjectBoundary_1.js"></script>
+        <script src="data/5YearRainReturnFlood_2.js"></script>
+        <script src="data/Buildings_3.js"></script>
+        <script src="data/SulopMunicipalBoundary_4.js"></script>
+        <script src="data/Waterbodies_5.js"></script>
+        <script src="data/Geotag_6.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[6.565392574107037,125.23308106407717],[6.654351883060452,125.40770129661098]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleTerrainHybrid_0');
+        map.getPane('pane_GoogleTerrainHybrid_0').style.zIndex = 400;
+        var layer_GoogleTerrainHybrid_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleTerrainHybrid_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+        });
+        layer_GoogleTerrainHybrid_0;
+        map.addLayer(layer_GoogleTerrainHybrid_0);
+        function pop_ProjectBoundary_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ProjectBoundary_1_0() {
+            return {
+                pane: 'pane_ProjectBoundary_1',
+                opacity: 1,
+                color: 'rgba(247,247,247,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(150,150,150,0.6352941176470588)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ProjectBoundary_1');
+        map.getPane('pane_ProjectBoundary_1').style.zIndex = 401;
+        map.getPane('pane_ProjectBoundary_1').style['mix-blend-mode'] = 'normal';
+        var layer_ProjectBoundary_1 = new L.geoJson(json_ProjectBoundary_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ProjectBoundary_1',
+            layerName: 'layer_ProjectBoundary_1',
+            pane: 'pane_ProjectBoundary_1',
+            onEachFeature: pop_ProjectBoundary_1,
+            style: style_ProjectBoundary_1_0,
+        });
+        bounds_group.addLayer(layer_ProjectBoundary_1);
+        map.addLayer(layer_ProjectBoundary_1);
+        function pop_5YearRainReturnFlood_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Var'] !== null ? autolinker.link(feature.properties['Var'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Muncode'] !== null ? autolinker.link(feature.properties['Muncode'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_5YearRainReturnFlood_2_0(feature) {
+            switch(String(feature.properties['Var'])) {
+                case '1':
+                    return {
+                pane: 'pane_5YearRainReturnFlood_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,230,69,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '2':
+                    return {
+                pane: 'pane_5YearRainReturnFlood_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,150,43,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '3':
+                    return {
+                pane: 'pane_5YearRainReturnFlood_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,1,22,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_5YearRainReturnFlood_2');
+        map.getPane('pane_5YearRainReturnFlood_2').style.zIndex = 402;
+        map.getPane('pane_5YearRainReturnFlood_2').style['mix-blend-mode'] = 'normal';
+        var layer_5YearRainReturnFlood_2 = new L.geoJson(json_5YearRainReturnFlood_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_5YearRainReturnFlood_2',
+            layerName: 'layer_5YearRainReturnFlood_2',
+            pane: 'pane_5YearRainReturnFlood_2',
+            onEachFeature: pop_5YearRainReturnFlood_2,
+            style: style_5YearRainReturnFlood_2_0,
+        });
+        bounds_group.addLayer(layer_5YearRainReturnFlood_2);
+        map.addLayer(layer_5YearRainReturnFlood_2);
+        function pop_Buildings_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Bldg_Name'] !== null ? autolinker.link(feature.properties['Bldg_Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Code'] !== null ? autolinker.link(feature.properties['Code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MIN'] !== null ? autolinker.link(feature.properties['MIN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MAX'] !== null ? autolinker.link(feature.properties['MAX'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MEAN'] !== null ? autolinker.link(feature.properties['MEAN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Bldg_Area'] !== null ? autolinker.link(feature.properties['Bldg_Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Remarks'] !== null ? autolinker.link(feature.properties['Remarks'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Buildings_3_0() {
+            return {
+                pane: 'pane_Buildings_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,255,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Buildings_3');
+        map.getPane('pane_Buildings_3').style.zIndex = 403;
+        map.getPane('pane_Buildings_3').style['mix-blend-mode'] = 'normal';
+        var layer_Buildings_3 = new L.geoJson(json_Buildings_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Buildings_3',
+            layerName: 'layer_Buildings_3',
+            pane: 'pane_Buildings_3',
+            onEachFeature: pop_Buildings_3,
+            style: style_Buildings_3_0,
+        });
+        bounds_group.addLayer(layer_Buildings_3);
+        map.addLayer(layer_Buildings_3);
+        function pop_SulopMunicipalBoundary_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? autolinker.link(feature.properties['Shape_Leng'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? autolinker.link(feature.properties['Shape_Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM3_EN'] !== null ? autolinker.link(feature.properties['ADM3_EN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM3_PCODE'] !== null ? autolinker.link(feature.properties['ADM3_PCODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM3_REF'] !== null ? autolinker.link(feature.properties['ADM3_REF'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM3ALT1EN'] !== null ? autolinker.link(feature.properties['ADM3ALT1EN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM3ALT2EN'] !== null ? autolinker.link(feature.properties['ADM3ALT2EN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM2_EN'] !== null ? autolinker.link(feature.properties['ADM2_EN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM2_PCODE'] !== null ? autolinker.link(feature.properties['ADM2_PCODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM1_EN'] !== null ? autolinker.link(feature.properties['ADM1_EN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM1_PCODE'] !== null ? autolinker.link(feature.properties['ADM1_PCODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM0_EN'] !== null ? autolinker.link(feature.properties['ADM0_EN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADM0_PCODE'] !== null ? autolinker.link(feature.properties['ADM0_PCODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['date'] !== null ? autolinker.link(feature.properties['date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['validOn'] !== null ? autolinker.link(feature.properties['validOn'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['validTo'] !== null ? autolinker.link(feature.properties['validTo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SulopMunicipalBoundary_4_0() {
+            return {
+                pane: 'pane_SulopMunicipalBoundary_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '10,5',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_SulopMunicipalBoundary_4');
+        map.getPane('pane_SulopMunicipalBoundary_4').style.zIndex = 404;
+        map.getPane('pane_SulopMunicipalBoundary_4').style['mix-blend-mode'] = 'normal';
+        var layer_SulopMunicipalBoundary_4 = new L.geoJson(json_SulopMunicipalBoundary_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_SulopMunicipalBoundary_4',
+            layerName: 'layer_SulopMunicipalBoundary_4',
+            pane: 'pane_SulopMunicipalBoundary_4',
+            onEachFeature: pop_SulopMunicipalBoundary_4,
+            style: style_SulopMunicipalBoundary_4_0,
+        });
+        bounds_group.addLayer(layer_SulopMunicipalBoundary_4);
+        map.addLayer(layer_SulopMunicipalBoundary_4);
+        function pop_Waterbodies_5(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Water_Name'] !== null ? autolinker.link(feature.properties['Water_Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Code'] !== null ? autolinker.link(feature.properties['Code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Waterbodies_5_0() {
+            return {
+                pane: 'pane_Waterbodies_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(23,208,221,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Waterbodies_5');
+        map.getPane('pane_Waterbodies_5').style.zIndex = 405;
+        map.getPane('pane_Waterbodies_5').style['mix-blend-mode'] = 'normal';
+        var layer_Waterbodies_5 = new L.geoJson(json_Waterbodies_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Waterbodies_5',
+            layerName: 'layer_Waterbodies_5',
+            pane: 'pane_Waterbodies_5',
+            onEachFeature: pop_Waterbodies_5,
+            style: style_Waterbodies_5_0,
+        });
+        bounds_group.addLayer(layer_Waterbodies_5);
+        map.addLayer(layer_Waterbodies_5);
+        function pop_Geotag_6(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Path'] !== null ? '<img src="images/' + String(feature.properties['Path']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Geotag_6_0() {
+            return {
+                pane: 'pane_Geotag_6',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(164,113,88,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Geotag_6');
+        map.getPane('pane_Geotag_6').style.zIndex = 406;
+        map.getPane('pane_Geotag_6').style['mix-blend-mode'] = 'normal';
+        var layer_Geotag_6 = new L.geoJson(json_Geotag_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Geotag_6',
+            layerName: 'layer_Geotag_6',
+            pane: 'pane_Geotag_6',
+            onEachFeature: pop_Geotag_6,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Geotag_6_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Geotag_6);
+        map.addLayer(layer_Geotag_6);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Geotag_6.png" /> Geotag': layer_Geotag_6,'<img src="legend/Waterbodies_5.png" /> Waterbodies': layer_Waterbodies_5,'<img src="legend/SulopMunicipalBoundary_4.png" /> Sulop Municipal Boundary': layer_SulopMunicipalBoundary_4,'<img src="legend/Buildings_3.png" /> Buildings': layer_Buildings_3,'5 Year Rain Return Flood<br /><table><tr><td style="text-align: center;"><img src="legend/5YearRainReturnFlood_2_Low0.png" /></td><td>Low</td></tr><tr><td style="text-align: center;"><img src="legend/5YearRainReturnFlood_2_Med1.png" /></td><td>Med</td></tr><tr><td style="text-align: center;"><img src="legend/5YearRainReturnFlood_2_High2.png" /></td><td>High</td></tr></table>': layer_5YearRainReturnFlood_2,'<img src="legend/ProjectBoundary_1.png" /> Project Boundary': layer_ProjectBoundary_1,"Google Terrain Hybrid": layer_GoogleTerrainHybrid_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_SulopMunicipalBoundary_4.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['ADM3_EN'] !== null?String('<div style="color: #323232; font-size: 15pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['ADM3_EN']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_SulopMunicipalBoundary_4'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_SulopMunicipalBoundary_4]);
+        map.on("zoomend", function(){
+            resetLabels([layer_SulopMunicipalBoundary_4]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_SulopMunicipalBoundary_4]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_SulopMunicipalBoundary_4]);
+        });
+        </script>
+    </body>
+</html>
